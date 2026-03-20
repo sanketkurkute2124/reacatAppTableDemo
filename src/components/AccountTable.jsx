@@ -97,6 +97,7 @@ export default function AccountTable() {
               "accountName",
               "email",
               "phone",
+              "dob",
               "website",
               "industry",
               "status",
@@ -122,7 +123,7 @@ export default function AccountTable() {
                 <td className="p-2">{row.accountName}</td>
                 <td className="p-2">{row.email}</td>
                 <td className="p-2">{row.phone}</td>
-                <td className="p-2">{row.website}</td>
+                <td className="p-2">{row.dob}</td>                <td className="p-2">{row.dob}</td>                <td className="p-2">{row.website}</td>
                 <td className="p-2">{row.industry}</td>
                 <td className="p-2">{row.status}</td>
                 <td className="p-2">{row.remark}</td>
