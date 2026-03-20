@@ -13,9 +13,15 @@ const accountSlice = createSlice({
     removeAccount: (state, action) => {
       const email = action.payload;
       state.list = state.list.filter((item) => item.email !== email);
+    },
+    updateAccount: (state, action) => {
+      const updated = action.payload;
+      state.list = state.list.map((item) =>
+        item.email === updated.email ? { ...item, ...updated } : item
+      );
     }
   }
 });
 
-export const { addAccount, removeAccount } = accountSlice.actions; 
+export const { addAccount, removeAccount, updateAccount } = accountSlice.actions; 
 export default accountSlice.reducer;

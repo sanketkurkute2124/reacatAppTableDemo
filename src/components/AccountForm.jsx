@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { addAccount, removeAccount } from "../features/accountSlice";
+import { addAccount, removeAccount, updateAccount } from "../features/accountSlice";
 import DatePicker from "react-datepicker";
 // const [addmissionFee, setAdmissionFee] = useState("");
 // const [registrationFee ,setRegistrationFee]=useState("");
@@ -52,6 +52,29 @@ export default function AccountForm() {
     dispatch(removeAccount(email));
     alert(`Deleted account with email: ${email}`);
     reset({ ...getValues(), email: "" });
+  };
+
+  const handleUpdate = () => {
+    const email = getValues("email");
+    if (!email) {
+      alert("Enter email in the email field to update account.");
+      return;
+    }
+
+    const exists = accounts.some((item) => item.email === email);
+    if (!exists) {
+      alert(`No account found for email: ${email}`);
+      return;
+    }
+
+    const data = getValues();
+    const payload = {
+      ...data,
+      dob: data.dob ? new Date(data.dob).toLocaleDateString("en-GB") : ""
+    };
+
+    dispatch(updateAccount(payload));
+    alert(`Updated account with email: ${email}`);
   };
 
   return (
@@ -225,6 +248,14 @@ export default function AccountForm() {
           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition duration-300"
         >
           Add Account
+        </button>
+
+        <button
+          type="button"
+          onClick={handleUpdate}
+          className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-md transition duration-300"
+        >
+          Update by Email
         </button>
 
         <button
